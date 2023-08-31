@@ -50,5 +50,45 @@
     - That’s basically how Prolog and semantic tableau work
     - You’ll implement this algo in the first assignment!
 
+## Wednesday, August 30, 2023
 
+- **abstract syntax trees**
+    - data structure that represents syntax of some particular input
+    - used for compilers that need to reason about program's syntax
+    - can use for these formulae
+        - we're gonna write a solver for these using ASTs
+    - variables and literals are leaves
+    - operators are internal nodes
+    - these aren't binary trees
+- kinds of expressions that can be represented:
+    - $X \wedge Y$
+    - $2 + 8$
+    - $7 * 3$
+    - if/else statements
+- precedence
+    - $1 + 2 * 3$
+        - $2 * 3$ has to happen first, deeper in tree
+    - implicit parentheses
+        - not in tree but they can help determine precedence
+            - javascript interpreter exception, paren in tree
+    - with AST, all precedence issues will go away
+    - `x = 1 + 2 * 3;`
+        - `*`, then `+`, then `=`, with implied paren
+- parser - function that spits out AST, part of compiler
+- you're not writing a parser, you'll be given an AST directly for you to process
+- handout, not graded
+- negation has one child
+- python program
+    - one class per kind of AST node
+    - `Number(5)` creates AST that only has the number 5
+    - `self`: instance of a class, not implicit like `this`
+    - every method takes `self` as a param
+    - `__str__` lets you return string representation of an object instead of unhelpful "Number object at memory location"
+    - `Binop` is an operator that takes two args
+    - `Plus(Binop)` extends `Binop`
+    - `Plus(Number(1)), Multiply(Number(2), Number(7))`
+    - `eval_expr(e)` evals AST
+    - `isinstance` checks if instance of a given class, like `Number`
+        - depending on the class, either return stored value, or perform given operation
+        - eval recursively, on left and right
 
