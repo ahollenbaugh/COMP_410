@@ -92,3 +92,80 @@
         - depending on the class, either return stored value, or perform given operation
         - eval recursively, on left and right
 
+## Monday, September 25, 2023
+
+- (I was absent last Monday, and I took notes on my iPad Wednesday.)
+- unification
+    - another core prolog feature
+    - equality constraints, how they're handled in the engine
+    - examples: 
+        - 1 = 1. &rarr; true. 
+        - 1 = 2. &rarr; false.
+        - X = 1. &rarr; X = 1.
+        - 1 = X. &rarr; 1 = X.
+    - variables start in an uninstantiated way (no known value)
+    - might still have constraint
+    - example: X = Y. 
+        - both uninstantiated, but still have constraint that X must equal Y
+        - it's not clear what X and Y need to be, but it's clear that they need to be equal
+    - unification of uninstantiated variables with values forces instantiation
+        - (X = 1 forces a value into X, and X will from then on be 1)
+- equivalence classes
+    - example: {x, y, 1} 
+        - set where elements are equivalent to each other
+    - effectively what's happening in prolog
+    - {x, y, 1} : X = Y, Y = 1
+    - start with {x}, {y}, and {1}, perform set union &rarr; end up with {x, y} {1}
+    - then, take union of the set containing y with the set containing 1 to get {x, y, 1}
+    - not quite a union that happens, there's a check
+        - suppose you have X = Y, X = 1, Y = 2
+        - {x, y, 1} {2} conflict
+        - how can X = Y when each is assigned two different values? 1 != 2
+        - treat concrete value as representative of that set (so 1 for first set and 2 for second), then no set unions are necessary, it's just an equality check!
+        - upon failure, backtrack to last choice point (another world to explore) - if none left, return false.
+        - engine will undo everything since that last point in memory
+    - this is effectively what's happening, but the algorithm is really slow and inefficient; prolog uses different method of representation
+    - every uninstantiated variable will live somewhere in memory
+    - _928 not a memory address, but you could think of it that way
+    - leftover value basically
+    - X = _2806, Y = _2810
+    - after unification: ```X = Y, writeln(X), writeln(Y)``` &rarr; ```_4616``` (mem address of set rep of that variable)
+    - set rep not based on position/order of writeln or anything, has to do with data structures
+    - represented more as a graph, starting with three nodes in a graph, then unification creates edges (x -> Y) (1)
+    - then X -> Y -> 1
+    - set rep is the one at the end of the path, if there is a concrete value (can't connect edge from one concrete to another, like 1 -> 2, since remember they're not equivalent) - essentially how this looks in memory
+- types of data: uninstantiated variables, integers, atoms
+- ints only equal same ints (1 = 1, 1 != 2)
+- atoms = same string equals itself ("foo" = "foo", "foo" != "bar")
+- can't compare atom to int
+- last data type = structure
+- handout time :)
+- tuple = something that contains other things
+- n-ary tuple
+- 2-tuples, 3-tuples, 4-tuples, etc. = how many things are inside the tuple
+- python -> ```("foo", "bar")```
+- elements can be different types (python dynamically typed anyway)
+    - ```('foo', 'bar', 1, 2, True, False)```
+    - not a set
+- sort of related to lists, but these are heterogeneous, every element can have a different type, and tuples have a fixed size, effectively at compile-time, can't dynamically change size
+- prolog not dynamically typed
+    - if you try to unify atom with integer, they're different types, and you get a failure, not error
+- structures are basically tuples with names
+- example: ```X = foo(1, 2).```
+- ```foo(1, 2).``` &rarr; no assignment means you're trying to call a method called foo with args 1 and 2
+- ```=(X, foo(1, 2)).``` &rarr; ```X = foo(1, 2).```
+- ```X = call(X), call(X).```
+    - cyclic term
+    - "stack limit 1 GB exceeded" (stack overflow)
+    - prolog lets you make cyclic terms
+    - ```unify_with_occurs_check(X, call(X))``` &rarr; occurs check to see if a term contains another term, will do unification if term doesn't contain itself
+- atoms can be viewed as a 0-ary tuple, they're just names, and no params
+- structures can contain other data, and that other data can itself be a structure
+- structures can be partially instantiated
+    - ```X = foo(Y, 1)```
+1. check structure names and arity - foo(1) = bar(1) or foo(1) = foo(1, 2)
+2. parameter-by-parameter, unify - 
+foo(X, 5) = 
+foo(7, Y)
+
+(We'll finish the handout on Wednesday)
