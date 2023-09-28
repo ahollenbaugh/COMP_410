@@ -169,3 +169,33 @@ foo(X, 5) =
 foo(7, Y)
 
 (We'll finish the handout on Wednesday)
+
+
+## Wednesday, September 27, 2023
+
+- conjunction works left to right
+- so ```X > 6, X = 7``` will result in an error
+- use ```X = 7, X > 6``` instead
+- ```use_module(library(clpfd))```
+- constraint logic programming over finite domains
+- ```X #> 7```
+- in library
+- adds additional constraints
+- "finite domains" refer to arithmetic specifically
+- libraries for set theory as well
+- warning: pino arithmetic? theoretical limitations
+- undecidable, infinite loops can occur
+- ```X is 1 + 2.```
+- ```X = 1 + 2.``` &rarr; ```X = 1+2.```
+- infix operators are parsed as structures
+- ```Temp = (X is 5 * 2), call(Temp).```
+- represents using structure, then evaluates using call
+- arithmetic and recursion
+- ```trace(name_of_procedure).```
+- ```name_of_procedure(0, N).```
+- good for debugging
+- will show params
+- can run as its own separate clause with single-step debugging by running ```trace, fib(0, N).```
+- asking for more solutions will ```Redo```
+- can get one possible solution and then "false" if you try to get more solutions. This is okay! Doesn't mean it failed, just means there are no more solutions.
+- ```!. % cut``` - DO NOT USE! dynamically trims tree of choices. it will break shit.
