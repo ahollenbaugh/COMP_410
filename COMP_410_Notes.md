@@ -199,3 +199,36 @@ foo(7, Y)
 - asking for more solutions will ```Redo```
 - can get one possible solution and then "false" if you try to get more solutions. This is okay! Doesn't mean it failed, just means there are no more solutions.
 - ```!. % cut``` - DO NOT USE! dynamically trims tree of choices. it will break shit.
+
+### Monday, October 2, 2023
+
+- recap
+- recursion in prolog
+- fibonacci example
+- relations, not functions
+- base cases = facts usually
+- handout
+- inherently recursive data structures normally
+- numbers don't work that way
+- calculating and recursing on a number are not naturally recursive
+- that's why fibonacci is a terrible example
+- List
+    - Cons
+    - Nil
+- list ::= nil | Cons(elem, list) <- base case vs recursive case
+- ```[1, 2, 3]```
+- ```X = cons(1, cons(2, cons(3, nil))).```
+- prolog has built-in support for lists: ```X = [1, 2, 3].```
+- ```X = .(1, .(2, .(3, []))). % . = structure, [] = atom```
+- will output nice list (syntactic sugar for the above)
+- ```--traditional```
+- ```[1, 2, 3] = .(Head, Tail). % will unify head with 1 and tail with rest of list```
+- dot is uncommon, and you're not really supposed to do this
+- ```[1, 2, 3] = [Head | Tail]. % shorthand, more common```
+- this is like 90% of what you need to know about lists in Pl
+- can use same syntax to destruct and construct a list
+- ```Head = 6, Tail = [1, 3], List = [Head | Tail].```
+- ```myAppend``` (check if file on website)
+- can run this in reverse, too
+- give result list, it will output every pair of lists
+- this is just kind of a preview of what we'll cover wednesday
