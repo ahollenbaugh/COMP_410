@@ -232,3 +232,14 @@ foo(7, Y)
 - can run this in reverse, too
 - give result list, it will output every pair of lists
 - this is just kind of a preview of what we'll cover wednesday
+
+### Wednesday, October 4, 2023
+
+- Exam next Wednesday
+- Practice exam will be posted tomorrow
+- Monday = review day
+- Pencil 'n' paper
+- tail recursion optimization
+- no mutable var -> no loop -> forced recursion
+- you only use local variables if you do something AFTER recursive call
+- [Head|Tail] separates a list into head and tail
