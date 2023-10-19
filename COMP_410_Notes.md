@@ -243,3 +243,15 @@ foo(7, Y)
 - no mutable var -> no loop -> forced recursion
 - you only use local variables if you do something AFTER recursive call
 - [Head|Tail] separates a list into head and tail
+
+### Wednesday, October 18, 2023
+
+- List = [1, 2, 3]
+- List = .(1, .(2, .(3, [])))
+    - .() is structure cons
+    - [] is atom nil
+- 1.pl --traditional
+    - ?
+- functor(foo(a, b), Name, Arity).
+- functor([], Name, Arity).
+- trace(sum) % excellent debugging feature
