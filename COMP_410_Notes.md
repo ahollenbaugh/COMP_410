@@ -255,3 +255,9 @@ foo(7, Y)
 - functor(foo(a, b), Name, Arity).
 - functor([], Name, Arity).
 - trace(sum) % excellent debugging feature
+
+### Wednesday, October 25, 2023
+
+- Last time: turn non-recur procedures into recursive ones
+- handout - we did #1 and #3
+- deconstruct list first then add, inside out
